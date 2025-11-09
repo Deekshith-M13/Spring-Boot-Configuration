@@ -1,0 +1,35 @@
+<dependency>
+  <groupId>org.modelmapper</groupId>
+  <artifactId>modelmapper</artifactId>
+  <version>3.2.4</version>
+</dependency>
+
+----------------------------------  this is for mapping entity to dto . Instead of wrtiting the same conversion of object yoe again and again.
+it specifies we are creating different types of beans.
+
+
+@Configuration
+public class MapperConfig {
+
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
+}   ------------------- here we are just making a bean using configuration to specify wt it must do.
+
+
+private final ModelMapper modelMapper;
+
+
+studentEntity student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student not found with id" + id));
+studentDto studentDto = modelMapper.map(student, studentDto.class);
+
+
+student has - studentEntity object. but we must convert it into studentDto.
+
+Method 1 - new studentDto(student.getId(),student.getName(),student.getAge()) --- but this will be done for every method u do .
+
+Method 2 - studentDto studentDto = modelMapper.map(student, studentDto.class);
+
+where student - studentEntity object
+to studentDto.class object.
