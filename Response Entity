@@ -1,0 +1,11 @@
+This is to indiate the flags - 200 OK etc.
+
+
+public ResponseEntity<studentDto> getByID(@PathVariable int id)
+
+
+1.  return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll());
+
+2.  return ResponseEntity.ok(studentService.getByID(id));
+
+3.  return ResponseEntity.noContent().build();   ------ this is mainly used in delete when the operation as taken place but there is nothing to return.
