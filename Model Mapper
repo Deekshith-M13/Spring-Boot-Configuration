@@ -32,4 +32,25 @@ Method 1 - new studentDto(student.getId(),student.getName(),student.getAge()) --
 Method 2 - studentDto studentDto = modelMapper.map(student, studentDto.class);
 
 where student - studentEntity object
-to studentDto.class object.
+to studentDto.class object/class .
+
+-> if student object of 
+
+studentRequestDto class has  -- object is -- student 
+name 
+age
+
+
+studentDto class has
+id
+name 
+age
+
+
+then   modelMapper.map(student, studentDto.class)     
+then every value of student should be present in studentDto.class and can have more. So every value from student is changed/added in studentDto.class variables.
+
+
+But if  modelMapper.map(obj1, obj2) -- then all the changes will be stored in obj2 there is no return type for this.
+
+Only instead of obj2 there is a class then there is a return type of class object.
