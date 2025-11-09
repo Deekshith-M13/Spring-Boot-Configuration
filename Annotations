@@ -1,0 +1,88 @@
+
+🧩 1. Stereotype Annotations (for Beans/Components)
+
+These define what kind of Spring-managed component a class is:
+
+| Annotation        | Description                                                                                       |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+| `@Component`      | A generic Spring-managed bean.                                                                    |
+| `@Service`        | A **service layer** bean (business logic). Same as `@Component`, just more specific semantically. |
+| `@Repository`     | A **DAO (Data Access Object)** bean for database operations. Enables **exception translation**.   |
+| `@Controller`     | Marks a **Spring MVC controller** class (for web requests).                                       |
+| `@RestController` | Combines `@Controller` + `@ResponseBody` → used for **REST APIs**.                                |
+
+
+
+⚙️ 2. Dependency Injection Annotations
+Annotation	Description
+
+
+@Autowired	-- Automatically injects dependencies (by type).
+
+private final name -- should have @AllArgsConstructor.
+
+
+🧾 3. Web and REST API Annotations
+
+| Annotation                                                                      | Description                                                                       |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `@RequestMapping`                                                               | Maps HTTP requests to controller methods (for all methods: GET, POST, etc.).      |
+| `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@PatchMapping` | Shorthand for specific HTTP methods.                                              |
+| `@PathVariable`                                                                 | Binds a **URI path variable** to a method parameter.                              |
+| `@RequestParam`                                                                 | Binds **query parameters** (e.g. `?id=1`).                                        |
+| `@RequestBody`                                                                  | Maps the **body of the request** (usually JSON) to a Java object.                 |
+| `@ResponseBody`                                                                 | Converts the returned Java object to JSON (used internally in `@RestController`). |
+| `@CrossOrigin`                                                                  | Enables **CORS** (Cross-Origin Resource Sharing) for REST endpoints.              |
+
+
+
+🗄️ 4. JPA and Database Annotations
+
+| Annotation                                             | Description                                                                                  |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `@Entity`                                              | Marks a class as a **JPA entity** (maps to a database table).                                |
+| `@Table(name = "table_name")`                          | Specifies the table name for an entity.                                                      |
+| `@Id`                                                  | Marks the **primary key** field.                                                             |
+| `@GeneratedValue(strategy = ...)`                      | Specifies how the ID is generated (`AUTO`, `IDENTITY`, `SEQUENCE`).                          |
+| `@Column(name = "col_name")`                           | Customizes a database column.                                                                |
+| `@OneToOne`, `@OneToMany`, `@ManyToOne`, `@ManyToMany` | Define **relationships** between entities.                                                   |
+| `@JoinColumn`                                          | Specifies the **foreign key** column.                                                        |
+| `@Transactional`                                       | Ensures that a method runs in a **transaction** — commits on success, rolls back on failure. |
+
+----------------------   LOMBOK --------------------------
+
+🧠 5. Boilerplate Reduction (Core)
+
+| Annotation           | Description                                                                                             | Example                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `@Getter`            | Generates getter methods for all fields.                                                                | `getName()`                         |
+| `@Setter`            | Generates setter methods for all fields.                                                                | `setName(String name)`              |
+| `@ToString`          | Generates a `toString()` method including all fields.                                                   | `"Student(name=John, age=20)"`      |
+| `@EqualsAndHashCode` | Generates `equals()` and `hashCode()` methods.                                                          | Used in comparisons or sets/maps.   |
+| `@Data`              | Combines `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`, and `@RequiredArgsConstructor`.       | Commonly used in DTOs and Entities. |
+| `@Value`             | Makes class **immutable** → all fields `private final`, generates getters, constructor, and no setters. | Like a record class.                |
+
+
+🏗️ 6. Constructors
+
+| Annotation                 | Description                                                           |
+| -------------------------- | --------------------------------------------------------------------- |
+| `@NoArgsConstructor`       | Generates a **no-argument constructor** (`public Student() {}`)       |
+| `@AllArgsConstructor`      | Generates a constructor with **all fields**.                          |
+| `@RequiredArgsConstructor` | Generates a constructor for **final** and **`@NonNull`** fields only. |
+
+
+🔒 7. Validation Annotations (from javax.validation or jakarta.validation)
+
+| Annotation                           | Description                                          |
+| ------------------------------------ | ---------------------------------------------------- |
+| `@NotNull`, `@NotEmpty`, `@NotBlank` | Validate that a field is not null/empty.             |
+| `@Size(min, max)`                    | Limits the size of a string/collection.              |
+| `@Min`, `@Max`                       | Numeric range validation.                            |
+| `@Email`                             | Validates email format.                              |
+| `@Pattern(regexp = "...")`           | Validates a regex pattern.                           |
+| `@Valid`                             | Used on method parameters to **trigger validation**. |
+
+
+
+
