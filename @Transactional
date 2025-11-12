@@ -1,0 +1,75 @@
+@Transactional makes sure your work with the database is done like a perfect deal — either everything happens, or nothing happens — keeping your database safe and consistent.
+
+
+
+🧩 Spring Boot Transaction Summary
+🔹 What is a Transaction?
+
+A transaction is a group of database operations that must either all succeed or all fail —
+ensuring atomicity, consistency, and data safety.
+
+➡️ If all steps succeed: changes are committed
+➡️ If any step fails: all changes are rolled back
+
+🔹 What is @Transactional?
+
+@Transactional is a Spring annotation that tells Spring:
+
+“Run everything in this method as one single transaction.”
+
+Spring then:
+
+Starts a transaction
+
+Opens a Persistence Context (a temporary in-memory workspace)
+
+Runs your DB operations
+
+If everything is fine → commit
+
+If any error occurs → rollback
+
+🔹 Persistence Context
+
+Managed by Hibernate (JPA provider).
+
+Acts like a notebook or cache that holds all entities currently being worked on.
+
+When you modify an entity, changes happen inside this context, not directly in the database.
+
+At the end of the transaction, Hibernate synchronizes it with the real database.
+
+🔹 Dirty Checking
+
+Hibernate automatically tracks changes made to entities in the Persistence Context.
+
+When the transaction commits, it checks (“dirty checks”) for differences between:
+
+Entities in memory
+
+Entities in the database
+
+If differences exist → Hibernate automatically issues the necessary UPDATE, INSERT, or DELETE SQL.
+
+✅ You don’t need to manually call save() again.
+
+🔹 Commit & Rollback
+Action	Description
+Commit	Transaction completes successfully → Hibernate flushes all updates to the database permanently
+Rollback	Transaction fails → Hibernate discards all changes in the Persistence Context → database stays unchanged
+🔹 Analogy
+Concept	Analogy
+Transaction	Like a deal — all steps succeed or the deal is cancelled
+@Transactional	The manager ensuring the deal completes properly
+Persistence Context	Your working notebook or Git workspace
+Dirty Checking	Like git diff – detects what changed
+Commit	Like git commit – saves changes permanently
+Rollback	Like git reset --hard – undo all changes
+🔹 In Simple Words
+
+@Transactional ensures your database operations happen safely and atomically.
+Hibernate keeps your data changes in memory (Persistence Context),
+checks what changed (Dirty Checking),
+and only writes them to the database when the transaction commits.
+If an error occurs, all those temporary changes are discarded (Rollback).
+
